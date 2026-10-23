@@ -15,7 +15,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   train-bluejay:
@@ -43,3 +43,10 @@ jobs:
             checkpoints/bluejay_tokenizer.json
             logs/bluejay_training.jsonl
           if-no-files-found: error
+      - name: Commit the newly trained custom weights
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add checkpoints/RC-Lilguy-Bluejay.pt checkpoints/bluejay_tokenizer.json logs/bluejay_training.jsonl
+          git commit -m "Train Lilguy Bluejay from scratch" || echo "No checkpoint changes to commit"
+          git push
