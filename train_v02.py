@@ -6,11 +6,35 @@ It is fast and compact, but it is not a semantic reasoning model.
 """
 import argparse, json, random, time
 from collections import Counter, defaultdict
-from pathlib import Path
-from train import fetch_stories
+import urllib.parse, urllib.request
 
 ROOT = Path(__file__).resolve().parent
+DATA = ROOT / "data"
 OUT = ROOT / "checkpoints"
+
+def fetch_stories(max_stories=800):
+    DATA.mkdir(exist_ok=True)
+    path = DATA / "tinystories.txt"
+    if path.exists() and path.stat().st_size > 100_000: return path.read_text(encoding="utf-8")
+    stories, offset = [], 0
+    while len(stories) < max_stories:
+        length = min(100, max_stories - len(stories))
+        params = urllib.parse.urlencode({"dataset":"roneneldan/TinyStories","config":"default","split":"train","offset":offset,"length":length})
+        host = "https://datasets-server." + "huggingface.co/rows?"
+        request = urllib.request.Request(host + params, headers={"User-Agent":"RogerChat-Research/0.2"})
+        with urllib.request.urlopen(request, timeout=30) as response: payload = json.loads(response.read().decode("utf-8"))
+        rows = payload.get("rows", [])
+        if not rows: break
+        for row in rows:
+            value = row.get("row", {}).get("text", "")
+            if isinstance(value, str) and value.strip(): stories.append(value.strip())
+        offset += len(rows)
+        print("Fetched %d/%d stories" % (len(stories), max_stories), flush=True)
+        if len(rows) < length: break
+    if not stories: raise RuntimeError("No stories downloaded.")
+    text = "\n\n".join(stories)
+    path.write_text(text, encoding="utf-8")
+    return text
 MODEL_ID = "RC-Lilguy-v0.2"
 MODEL_NAME = "RC Lilguy v0.2 — Context Cache"
 
