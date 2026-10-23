@@ -1,6 +1,6 @@
 # RogerChat
 
-**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom-branded on-device assistant).  
+**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom conversational Transformer trained from scratch).  
 **Goal:** Keep the original experiments while offering a pretrained instruction model with custom RogerChat behavior and presentation.
 
 ## Speed-first design
@@ -39,5 +39,5 @@ The training script fetches a bounded number of examples from the Hugging Face d
 This is a language-model experiment, not a capable assistant yet. It predicts the next character and has no instruction tuning, conversation fine-tuning, retrieval, or factuality guarantees. Training loss alone does not prove that outputs are useful. Model files are uploaded as short-lived workflow artifacts; the workflow does not deploy a chatbot server.
 
 
-## Lilguy Bluejay — custom-branded browser assistant
-Choose **Lilguy Bluejay** in the model picker. Its name, status text, and assistant instructions are customized for RogerChat. The first message loads the WebLLM runtime and downloads the small quantized pretrained model into the browser; this can be several hundred megabytes and needs WebGPU plus a modern supported browser. Later messages reuse the loaded model. Model inference runs on the user's device; the initial runtime/model download requires internet. **Transparency:** Bluejay is a custom RogerChat configuration and brand, not a model trained from scratch; its underlying weights are pretrained. At 0.5B parameters, it is still a small model and will not match ChatGPT-class systems.
+## Lilguy Bluejay — custom model trained from scratch
+Bluejay uses the project's own small character-level Transformer architecture, initialized with random weights and trained on conversational examples. It is not a renamed or fine-tuned pretrained foundation model. Run **Actions → Train Lilguy Bluejay from scratch → Run workflow** to create the checkpoint and tokenizer. The workflow publishes the generated checkpoint as an artifact and commits the resulting model files so a server deployment can load them. This is an experimental tiny model; it needs substantial training to produce useful answers and will not perform like ChatGPT-class models. The web app uses the `/api/chat` endpoint for inference, so deploy the Python API alongside the static frontend.
