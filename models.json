@@ -10,7 +10,13 @@
       "id": "RC-Lilguy-v0.2",
       "label": "v0.2 · Context Cache",
       "short": "v0.2",
-      "status": "Browser model"
+      "status": "Browser model · experimental"
+    },
+    {
+      "id": "RC-Lilguy-v0.3",
+      "label": "v0.3 · Qwen Instruct",
+      "short": "v0.3",
+      "status": "Pretrained 0.5B · WebGPU"
     }
   ]
 }
