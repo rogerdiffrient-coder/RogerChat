@@ -1,0 +1,48 @@
+name: Train RC Lilguy v0.1
+
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: "Training steps (start with 300)"
+        required: true
+        default: "300"
+        type: choice
+        options: ["100", "300", "500", "1000"]
+      stories:
+        description: "TinyStories examples to use"
+        required: true
+        default: "800"
+        type: choice
+        options: ["200", "800", "1200", "2000"]
+
+permissions:
+  contents: read
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out RogerChat
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install CPU PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Train from random initialization
+        run: python train.py --steps "${{ inputs.steps }}" --stories "${{ inputs.stories }}" --threads 2
+      - name: Upload model checkpoint and logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: RC-Lilguy-v0.1-checkpoint
+          path: |
+            checkpoints/
+            logs/
+          if-no-files-found: error
+          retention-days: 7
