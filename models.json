@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "id": "RC-Lilguy-v0.1",
+      "label": "v0.1 · Transformer",
+      "short": "v0.1",
+      "status": "Local Python runner"
+    },
+    {
+      "id": "RC-Lilguy-v0.2",
+      "label": "v0.2 · Context Cache",
+      "short": "v0.2",
+      "status": "Browser model"
+    }
+  ]
+}
