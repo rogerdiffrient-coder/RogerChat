@@ -1,6 +1,11 @@
 name: Train RC Lilguy v0.2
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'train_v02.py'
+      - '.github/workflows/train-lilguy-v02.yml'
   workflow_dispatch:
     inputs:
       stories:
