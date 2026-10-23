@@ -1,7 +1,7 @@
 # RogerChat
 
-**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and v0.3 (Qwen2.5-0.5B-Instruct via WebLLM/WebGPU).  
-**Goal:** Keep the original experiments while adding a genuinely pretrained instruction model for more coherent chat.
+**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom-branded on-device assistant).  
+**Goal:** Keep the original experiments while offering a pretrained instruction model with custom RogerChat behavior and presentation.
 
 ## Speed-first design
 - Character tokenizer built from training text; no tokenizer training step.
@@ -39,5 +39,5 @@ The training script fetches a bounded number of examples from the Hugging Face d
 This is a language-model experiment, not a capable assistant yet. It predicts the next character and has no instruction tuning, conversation fine-tuning, retrieval, or factuality guarantees. Training loss alone does not prove that outputs are useful. Model files are uploaded as short-lived workflow artifacts; the workflow does not deploy a chatbot server.
 
 
-## v0.3 — pretrained browser model
-Choose **v0.3 · Qwen Instruct** in the model picker. The first message loads the WebLLM runtime and downloads the quantized Qwen2.5-0.5B-Instruct model into the browser; this can be several hundred megabytes and needs WebGPU plus a modern supported browser. Later messages reuse the loaded model. Model weights run on the user's device; the initial runtime/model download requires internet. This is a real pretrained instruction model, unlike v0.2's character-context cache, but at 0.5B parameters it is still a small model and will not match ChatGPT-class systems.
+## Lilguy Bluejay — custom-branded browser assistant
+Choose **Lilguy Bluejay** in the model picker. Its name, status text, and assistant instructions are customized for RogerChat. The first message loads the WebLLM runtime and downloads the small quantized pretrained model into the browser; this can be several hundred megabytes and needs WebGPU plus a modern supported browser. Later messages reuse the loaded model. Model inference runs on the user's device; the initial runtime/model download requires internet. **Transparency:** Bluejay is a custom RogerChat configuration and brand, not a model trained from scratch; its underlying weights are pretrained. At 0.5B parameters, it is still a small model and will not match ChatGPT-class systems.
