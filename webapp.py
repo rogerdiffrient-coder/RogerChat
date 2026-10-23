@@ -106,7 +106,7 @@ class Handler(BaseHTTPRequestHandler):
             if model_id == "RC-Lilguy-v0.2":
                 load_v2()
                 # Only characters present in the learned corpus can condition generation.
-                known = set("".join(v2_data["tables"][0].get("", {}).keys()))
+                known = {item[0] for item in v2_data["tables"][0].get("", [])}
                 seed = "".join(ch for ch in ("User: " + message + "\nAssistant:") if ch in known)
                 reply = generate_v2(seed, tokens, temperature)
             else:
