@@ -17,7 +17,7 @@ on:
         options: ["3", "4", "5"]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   train:
@@ -32,6 +32,13 @@ jobs:
           python-version: "3.11"
       - name: Train context-cache model (no PyTorch required)
         run: python train_v02.py --stories "${{ inputs.stories }}" --max-order "${{ inputs.max_order }}"
+      - name: Publish checkpoint for automatic browser loading
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add checkpoints/RC-Lilguy-v0.2.json
+          git commit -m "Publish RC Lilguy v0.2 browser checkpoint" || echo "Checkpoint unchanged"
+          git push
       - name: Upload v0.2 model
         uses: actions/upload-artifact@v4
         with:
