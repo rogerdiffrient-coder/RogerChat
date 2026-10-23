@@ -1,0 +1,41 @@
+name: Train RC Lilguy v0.2
+
+on:
+  workflow_dispatch:
+    inputs:
+      stories:
+        description: "TinyStories examples for the context-cache model"
+        required: true
+        default: "800"
+        type: choice
+        options: ["200", "800", "1200", "2000"]
+      max_order:
+        description: "Maximum context length (higher uses more memory)"
+        required: true
+        default: "5"
+        type: choice
+        options: ["3", "4", "5"]
+
+permissions:
+  contents: read
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out RogerChat
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Train context-cache model (no PyTorch required)
+        run: python train_v02.py --stories "${{ inputs.stories }}" --max-order "${{ inputs.max_order }}"
+      - name: Upload v0.2 model
+        uses: actions/upload-artifact@v4
+        with:
+          name: RC-Lilguy-v0.2-checkpoint
+          path: checkpoints/RC-Lilguy-v0.2.json
+          if-no-files-found: error
+          retention-days: 7
