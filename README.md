@@ -1,6 +1,6 @@
 # RogerChat
 
-**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom conversational Transformer trained from scratch).  
+**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom conversational Transformer with a from-scratch training pipeline).  
 **Goal:** Keep the original experiments while offering a pretrained instruction model with custom RogerChat behavior and presentation.
 
 ## Speed-first design
