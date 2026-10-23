@@ -13,10 +13,10 @@
       "status": "Browser model · experimental"
     },
     {
-      "id": "RC-Lilguy-v0.3",
-      "label": "v0.3 · Qwen Instruct",
-      "short": "v0.3",
-      "status": "Pretrained 0.5B · WebGPU"
+      "id": "RC-Lilguy-Bluejay",
+      "label": "Lilguy Bluejay",
+      "short": "Bluejay",
+      "status": "Custom assistant · on-device"
     }
   ]
 }
