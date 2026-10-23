@@ -1,8 +1,7 @@
 # RogerChat
 
-**Model:** RC Lilguy v0.1  
-**Model ID:** `RC-Lilguy-v0.1`  
-**Goal:** Train a genuinely original, small decoder-only Transformer from random initialization, with CPU-first experiments.
+**Models:** RC Lilguy v0.1 (Transformer) and v0.2 (Context Cache)  
+**Goal:** Compare a small neural language model with a fast, one-pass pattern-learning experiment.
 
 ## Speed-first design
 - Character tokenizer built from training text; no tokenizer training step.
