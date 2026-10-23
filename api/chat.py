@@ -1,31 +1,38 @@
-"""Vercel-compatible inference endpoint for the from-scratch Lilguy Bluejay model."""
+"""Inference endpoint for the trained from-scratch Lilguy Bluejay model."""
 import json
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler
+
 import torch
-from train import Lilguy
+from tokenizers import Tokenizer
+from bluejay_model import BluejayLM
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKPOINT = ROOT / "checkpoints" / "RC-Lilguy-Bluejay.pt"
-TOKENIZER = ROOT / "checkpoints" / "bluejay_tokenizer.json"
+TOKENIZER_PATH = ROOT / "checkpoints" / "bluejay_tokenizer.json"
 _model = None
-_chars = None
+_tokenizer = None
 _config = None
 
+
 def load_model():
-    global _model, _chars, _config
+    global _model, _tokenizer, _config
     if _model is not None:
-        return _model, _chars, _config
-    if not CHECKPOINT.exists() or not TOKENIZER.exists():
-        raise RuntimeError("Bluejay has not been trained yet. Run the Train Lilguy Bluejay from scratch workflow in GitHub Actions.")
-    ck = torch.load(CHECKPOINT, map_location="cpu", weights_only=False)
-    _config = ck["config"]
-    _chars = json.loads(TOKENIZER.read_text(encoding="utf-8"))["chars"]
-    _model = Lilguy(vocab=len(_chars), ctx=_config["context"], dim=_config["dim"],
-                    layers=_config["layers"], heads=_config["heads"], dropout=_config["dropout"])
-    _model.load_state_dict(ck["model"])
+        return _model, _tokenizer, _config
+    if not CHECKPOINT.exists() or not TOKENIZER_PATH.exists():
+        raise RuntimeError("Bluejay weights are not trained yet. Run the Train Lilguy Bluejay workflow.")
+    saved = torch.load(CHECKPOINT, map_location="cpu", weights_only=False)
+    _config = saved["config"]
+    _tokenizer = Tokenizer.from_file(str(TOKENIZER_PATH))
+    _model = BluejayLM(
+        vocab_size=_config["vocab_size"], context=_config["context"],
+        dim=_config["dim"], layers=_config["layers"], heads=_config["heads"],
+        kv_heads=_config["kv_heads"], dropout=_config.get("dropout", 0.0)
+    )
+    _model.load_state_dict(saved["model"])
     _model.eval()
-    return _model, _chars, _config
+    return _model, _tokenizer, _config
+
 
 class Handler(BaseHTTPRequestHandler):
     def _reply(self, status, payload):
@@ -46,29 +53,32 @@ class Handler(BaseHTTPRequestHandler):
             prompt = str(body.get("message", "")).strip()[:3000]
             if not prompt:
                 return self._reply(400, {"reply": "Type a message first."})
-            model, chars, config = load_model()
-            stoi = {ch: i for i, ch in enumerate(chars)}
-            seed_text = "User: " + prompt + "\nBluejay:"
-            seed = [stoi[ch] for ch in seed_text if ch in stoi]
-            if not seed:
-                return self._reply(500, {"reply": "The prompt contains no characters supported by Bluejay's tokenizer."})
-            temp = max(0.2, min(1.2, float(body.get("temperature", 0.8))))
-            count = max(20, min(220, int(body.get("tokens", 120))))
+            model, tokenizer, config = load_model()
+            seed_text = "<|user|> " + prompt + "\n<|assistant|>"
+            encoded = tokenizer.encode(seed_text).ids
+            if not encoded:
+                return self._reply(400, {"reply": "Bluejay could not tokenize that message."})
+            temperature = max(0.15, min(1.2, float(body.get("temperature", 0.75))))
+            count = max(8, min(180, int(body.get("tokens", 100))))
             with torch.no_grad():
-                output = model.generate(torch.tensor([seed], dtype=torch.long), n=count, temp=temp)[0].tolist()
-            decoded = "".join(chars[int(i)] for i in output[len(seed):])
-            for marker in ("\nUser:", "\n<|conversation|>"):
-                if marker in decoded:
-                    decoded = decoded.split(marker, 1)[0]
-            reply = decoded.strip()
+                output = model.generate(
+                    torch.tensor([encoded], dtype=torch.long),
+                    max_new_tokens=count, temperature=temperature, top_k=40,
+                    eos_id=config.get("eos_token_id")
+                )[0].tolist()
+            reply = tokenizer.decode(output[len(encoded):], skip_special_tokens=True)
+            for marker in ("<|user|>", "<|assistant|>", "<|end|>"):
+                if marker in reply:
+                    reply = reply.split(marker, 1)[0]
+            reply = reply.strip()
             if not reply:
-                reply = "I couldn't form a reply yet. Bluejay is still an experimental small model."
+                reply = "I don't have a useful answer yet—I'm still learning."
             return self._reply(200, {"reply": reply})
         except Exception as exc:
             return self._reply(500, {"reply": str(exc)})
 
     def do_GET(self):
-        return self._reply(200, {"model": "Lilguy Bluejay", "status": "custom from-scratch Transformer"})
+        return self._reply(200, {"model": "Lilguy Bluejay", "status": "custom model with RoPE, RMSNorm, SwiGLU, GQA, and BPE"})
 
-# Some Python hosting adapters look for a lowercase handler export.
+
 handler = Handler
