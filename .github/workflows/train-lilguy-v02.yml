@@ -36,7 +36,14 @@ jobs:
         with:
           python-version: "3.11"
       - name: Train context-cache model (no PyTorch required)
-        run: python train_v02.py --stories "${{ inputs.stories }}" --max-order "${{ inputs.max_order }}"
+        env:
+          STORIES: ${{ inputs.stories }}
+          MAX_ORDER: ${{ inputs.max_order }}
+        run: |
+          STORIES="${STORIES:-800}"
+          MAX_ORDER="${MAX_ORDER:-5}"
+          echo "Training with stories=$STORIES, max_order=$MAX_ORDER"
+          python train_v02.py --stories "$STORIES" --max-order "$MAX_ORDER"
       - name: Publish checkpoint for automatic browser loading
         run: |
           git config user.name "github-actions[bot]"
