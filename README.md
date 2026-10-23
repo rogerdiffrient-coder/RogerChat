@@ -1,7 +1,7 @@
 # RogerChat
 
-**Models:** RC Lilguy v0.1 (Transformer) and v0.2 (Context Cache)  
-**Goal:** Compare a small neural language model with a fast, one-pass pattern-learning experiment.
+**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and v0.3 (Qwen2.5-0.5B-Instruct via WebLLM/WebGPU).  
+**Goal:** Keep the original experiments while adding a genuinely pretrained instruction model for more coherent chat.
 
 ## Speed-first design
 - Character tokenizer built from training text; no tokenizer training step.
@@ -37,3 +37,7 @@ The training script fetches a bounded number of examples from the Hugging Face d
 
 ## Honest limitations
 This is a language-model experiment, not a capable assistant yet. It predicts the next character and has no instruction tuning, conversation fine-tuning, retrieval, or factuality guarantees. Training loss alone does not prove that outputs are useful. Model files are uploaded as short-lived workflow artifacts; the workflow does not deploy a chatbot server.
+
+
+## v0.3 — pretrained browser model
+Choose **v0.3 · Qwen Instruct** in the model picker. The first message loads the WebLLM runtime and downloads the quantized Qwen2.5-0.5B-Instruct model into the browser; this can be several hundred megabytes and needs WebGPU plus a modern supported browser. Later messages reuse the loaded model. Model weights run on the user's device; the initial runtime/model download requires internet. This is a real pretrained instruction model, unlike v0.2's character-context cache, but at 0.5B parameters it is still a small model and will not match ChatGPT-class systems.
