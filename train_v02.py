@@ -5,6 +5,7 @@ next-character distributions from 1- through 5-character contexts in one pass.
 It is fast and compact, but it is not a semantic reasoning model.
 """
 import argparse, json, random, time
+from pathlib import Path
 from collections import Counter, defaultdict
 import urllib.parse, urllib.request
 
