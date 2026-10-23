@@ -1,0 +1,45 @@
+name: Train Lilguy Bluejay from scratch
+
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: Training steps
+        required: true
+        default: "1500"
+        type: string
+      conversations:
+        description: Dialogue examples
+        required: true
+        default: "1200"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  train-bluejay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Train new Bluejay weights
+        run: >-
+          python train_bluejay.py
+          --steps "${{ inputs.steps }}"
+          --conversations "${{ inputs.conversations }}"
+          --threads 2
+      - name: Publish training checkpoint as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lilguy-Bluejay-from-scratch
+          path: |
+            checkpoints/RC-Lilguy-Bluejay.pt
+            checkpoints/bluejay_tokenizer.json
+            logs/bluejay_training.jsonl
+          if-no-files-found: error
