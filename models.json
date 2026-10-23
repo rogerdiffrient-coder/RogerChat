@@ -16,7 +16,7 @@
       "id": "RC-Lilguy-Bluejay",
       "label": "Lilguy Bluejay",
       "short": "Bluejay",
-      "status": "Custom assistant · on-device"
+      "status": "Custom weights · trained from scratch"
     }
   ]
 }
