@@ -106,7 +106,7 @@ class BluejayLM(nn.Module):
                  kv_heads=2, dropout=0.0):
         super().__init__()
         self.config = {
-            "model_id": "RC-Lilguy-Bluejay", "model_name": "Lilguy Bluejay",
+            "model_id": "RC-Lilguy-v0.3", "model_name": "Lilguy Bluejay v0.3",
             "architecture": "decoder-only Transformer with RoPE, RMSNorm, SwiGLU, GQA",
             "tokenizer": "byte-level BPE", "vocab_size": vocab_size,
             "context": context, "dim": dim, "layers": layers, "heads": heads,
