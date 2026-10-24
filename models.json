@@ -39,7 +39,7 @@
       "label": "Lilguy Bluejay v0.3 · Local",
       "short": "v0.3",
       "status": "Local browser inference · WebGPU/WASM",
-      "description": "Runs on your own device from GitHub Pages using a small instruction-tuned model. No Python API or hosted chat server. The original from-scratch Bluejay checkpoint remains a separate training experiment and is not loaded by this browser runtime.",
+      "description": "Runs on your own device from GitHub Pages using the ONNX-converted SmolLM2-360M-Instruct model. No Python API or hosted chat server. The original from-scratch Bluejay checkpoint remains a separate training experiment and is not loaded by this browser runtime.",
       "created": "2026-10-24",
       "tags": [
         "Local",
