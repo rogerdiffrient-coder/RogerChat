@@ -47,3 +47,8 @@ The frontend calls `/api/chat`. A static host such as GitHub Pages cannot execut
 - [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories) — short stories.
 
 Review each dataset's card and license before redistributing derived data or model artifacts.
+
+
+## Run locally from GitHub Pages (no Python API)
+
+The **Lilguy Bluejay v0.3 · Local** browser runtime uses Transformers.js with the `HuggingFaceTB/SmolLM2-360M-Instruct` model. The model runs on the visitor's device using WebGPU when available and WASM otherwise. The first use downloads the model weights into the browser cache (roughly a few hundred MB); later visits can reuse cached files when the browser retains them. The prompt is processed in the browser rather than sent to a RogerChat Python server. An internet connection is required for the initial library/model download. This browser runtime is not the same as loading the original custom-trained Bluejay checkpoint.
