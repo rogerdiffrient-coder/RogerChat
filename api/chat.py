@@ -48,7 +48,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             length = min(int(self.headers.get("Content-Length", "0")), 100_000)
             body = json.loads(self.rfile.read(length).decode("utf-8"))
-            if body.get("model_id") != "RC-Lilguy-Bluejay":
+            if body.get("model_id") != "RC-Lilguy-v0.3":
                 return self._reply(400, {"reply": "This endpoint currently serves Lilguy Bluejay only."})
             prompt = str(body.get("message", "")).strip()[:3000]
             if not prompt:
@@ -59,7 +59,7 @@ class Handler(BaseHTTPRequestHandler):
             if not encoded:
                 return self._reply(400, {"reply": "Bluejay could not tokenize that message."})
             temperature = max(0.15, min(1.2, float(body.get("temperature", 0.75))))
-            count = max(8, min(180, int(body.get("tokens", 100))))
+            count = max(16, min(512, int(body.get("tokens", 320))))
             with torch.no_grad():
                 output = model.generate(
                     torch.tensor([encoded], dtype=torch.long),
@@ -78,7 +78,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._reply(500, {"reply": str(exc)})
 
     def do_GET(self):
-        return self._reply(200, {"model": "Lilguy Bluejay", "status": "custom model with RoPE, RMSNorm, SwiGLU, GQA, and BPE"})
+        return self._reply(200, {"model": "Lilguy Bluejay v0.3", "status": "larger from-scratch Transformer; dialogue + story training; RoPE, RMSNorm, SwiGLU, GQA, and BPE"})
 
 
 handler = Handler
