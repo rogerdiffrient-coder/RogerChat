@@ -1,43 +1,49 @@
 # RogerChat
 
-**Models:** RC Lilguy v0.1 (Transformer), v0.2 (Context Cache), and Lilguy Bluejay (custom conversational Transformer with a from-scratch training pipeline).  
-**Goal:** Keep the original experiments while offering a pretrained instruction model with custom RogerChat behavior and presentation.
+RogerChat is a small, experimental chat UI with several Lilguy model experiments. **Lilguy Bluejay v0.3** is the custom model trained from random initialization; it does not use pretrained model weights.
 
-## Speed-first design
-- Character tokenizer built from training text; no tokenizer training step.
-- 2 Transformer blocks, 4 attention heads, 96-dimensional hidden state.
-- 96-character context and tied token/output embeddings.
-- Small batches, AdamW, periodic checkpointing.
-- No pretrained weights and no GPU requirement.
+## Lilguy Bluejay v0.3
 
-This architecture favors fast experiments over broad knowledge. Character models need more steps to learn fluent text than subword models, so early outputs may be incoherent. The goal is a quick, reproducible training pipeline before scaling.
+v0.3 is larger and is trained specifically to learn both dialogue and story-writing patterns.
 
-## Train on GitHub Actions CPU
+- **Architecture:** decoder-only Transformer with 8 layers, 320 hidden dimensions, 8 attention heads, 2 key/value heads, RoPE, RMSNorm, SwiGLU, and grouped-query attention.
+- **Tokenizer:** project-trained byte-level BPE tokenizer, with an 8,000-token target vocabulary.
+- **Training data:** public UltraChat dialogue examples plus public TinyStories examples formatted as story-writing requests.
+- **Default training run:** 3,000 dialogue examples, 3,000 story examples, 3,000 optimization steps, context length 384, batch size 4.
+- **Inference:** CPU-friendly PyTorch generation; response length can be increased to 512 tokens in Settings.
+
+This is still a small model trained from scratch, so coherent stories are a goal, not a guarantee. More training generally helps, but a short CPU-only run cannot match large pretrained language models. The model checkpoint is not included until the training workflow completes.
+
+## Train v0.3 on GitHub Actions
+
 1. Open the repository's **Actions** tab.
-2. Select **Train RC Lilguy v0.1**.
+2. Select **Train Lilguy v0.3 — story-capable custom model**.
 3. Click **Run workflow**.
-4. Start with **300 steps** and **800 stories**.
-5. Download the `RC-Lilguy-v0.1-checkpoint` artifact from the completed workflow run.
+4. Keep the default values to train on 3,000 dialogue examples and 3,000 story examples for 3,000 steps.
+5. When the workflow finishes, it publishes a model artifact and attempts to commit the checkpoint, tokenizer, training log, and cached datasets.
 
-The workflow uses a standard GitHub-hosted Ubuntu CPU runner. Free usage depends on account limits and GitHub's current policies. Runtime varies with runner load, package installation, and dataset availability.
+The workflow uses a GitHub-hosted CPU runner. Runtime depends on runner load, dataset access, and GitHub usage limits. If the job times out, rerun with fewer steps or fewer examples.
 
-## Train locally
-Python 3.11 recommended:
+## Run training locally
+
+Python 3.11 is recommended.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python train.py --steps 300 --stories 800
-python generate.py --prompt "Once upon a time"
+python train_bluejay.py --steps 3000 --conversations 3000 --stories 3000 --threads 2
 ```
-Continue from the latest checkpoint with `--resume`; `--steps` means additional steps when resuming.
 
-## Dataset
-The training script fetches a bounded number of examples from the Hugging Face dataset viewer for `roneneldan/TinyStories`. Review its dataset card and terms: https://huggingface.co/datasets/roneneldan/TinyStories
+Use `--resume` only when continuing from a compatible v0.3 checkpoint. Older checkpoints from earlier model sizes are not compatible with the v0.3 architecture.
 
-## Honest limitations
-This is a language-model experiment, not a capable assistant yet. It predicts the next character and has no instruction tuning, conversation fine-tuning, retrieval, or factuality guarantees. Training loss alone does not prove that outputs are useful. Model files are uploaded as short-lived workflow artifacts; the workflow does not deploy a chatbot server.
+## Hosting the chat API
 
+The frontend calls `/api/chat`. A static host such as GitHub Pages cannot execute the Python/PyTorch model endpoint; the frontend must be deployed with a compatible Python backend. The backend also needs the trained checkpoint at `checkpoints/RC-Lilguy-Bluejay.pt` and tokenizer at `checkpoints/bluejay_tokenizer.json`.
 
-## Lilguy Bluejay — custom model trained from scratch
-Bluejay uses the project's own small character-level Transformer architecture, initialized with random weights and trained on conversational examples. It is not a renamed or fine-tuned pretrained foundation model. Run **Actions → Train Lilguy Bluejay from scratch → Run workflow** to create the checkpoint and tokenizer. The workflow publishes the generated checkpoint as an artifact and commits the resulting model files so a server deployment can load them. This is an experimental tiny model; it needs substantial training to produce useful answers and will not perform like ChatGPT-class models. The web app uses the `/api/chat` endpoint for inference, so deploy the Python API alongside the static frontend.
+## Dataset sources
+
+- [UltraChat 200k](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k) — dialogue examples.
+- [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories) — short stories.
+
+Review each dataset's card and license before redistributing derived data or model artifacts.
