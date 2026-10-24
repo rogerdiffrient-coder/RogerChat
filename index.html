@@ -171,7 +171,7 @@ async function ensureLocalTextGenerator(){
   $('#modelStatus').textContent='Loading local model · first run downloads ~250 MB';
   const {pipeline,env}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2');
   env.allowLocalModels=false;env.useBrowserCache=true;
-  const model='HuggingFaceTB/SmolLM2-360M-Instruct';
+  const model='onnx-community/SmolLM2-360M-Instruct-ONNX';
   if(navigator.gpu){
    try{localTextGenerator=await pipeline('text-generation',model,{device:'webgpu',dtype:'q4'});localTextBackend='WebGPU';}
    catch(webgpuError){console.warn('WebGPU model load failed; trying WASM',webgpuError);localTextGenerator=await pipeline('text-generation',model,{device:'wasm',dtype:'q4'});localTextBackend='WASM';}
