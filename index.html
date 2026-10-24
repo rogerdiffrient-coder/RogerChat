@@ -49,7 +49,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-vis
 .model-use:hover{filter:saturate(1.15);transform:translateY(-1px)}
 .model-use:disabled{background:#e3f3ff;color:#2475c8;box-shadow:none;cursor:default}
 .model-empty{padding:45px 15px;text-align:center;color:#6b8bb4}
-@media(max-width:650px){.model-library-overlay{padding:8px}.model-library{width:100%;height:94dvh;border-radius:20px}.model-library-head{padding:17px 15px 13px}.model-library-content{padding:13px}.model-library-controls{grid-template-columns:1fr}.model-grid{grid-template-columns:1fr}.model-card{padding:14px}.model-trigger{min-width:0}}
+@media(max-width:650px){.model-library-overlay{padding:8px}.model-library{width:100%;height:94dvh;border-radius:20px}.model-library-head{padding:17px 15px 13px}.model-library-content{padding:13px}.model-library-controls{grid-template-columns:1fr}.model-grid{grid-template-columns:1fr}.model-card{padding:14px}.modeltrigger{min-width:0;max-width:52vw}}
 </style></head>
 <body>
 <div class="app">
@@ -198,5 +198,5 @@ availability={};
 try{chats=JSON.parse(localStorage.getItem(CHAT_KEY)||'[]');settings={...settings,...JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}}catch{chats=[]}
 $('#maxTokens').value=String(settings.tokens);$('#temperature').value=String(settings.temperature);$('#showStatus').checked=settings.showStatus;$('#saveChats').checked=settings.saveChats;
 if(!chats.length){currentId=null;renderConversation()}else{currentId=chats[0].id;renderConversation();renderHistory()}
-loadModelCatalog().then(()=>{if(!chats.length)startChat();else{if(!modelInfo(active()?.model))active().model=modelSelect.value;modelSelect.value=active().model;syncModel()}});browserModelPromise=autoLoadModel();
+loadModelCatalog().then(()=>{if(!chats.length)startChat();else{if(active())active().model=modelSelect.value;syncModel()}});browserModelPromise=autoLoadModel();
 </script></body></html>
