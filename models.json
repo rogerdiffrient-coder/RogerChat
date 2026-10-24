@@ -2,21 +2,33 @@
   "models": [
     {
       "id": "RC-Lilguy-v0.1",
-      "label": "v0.1 · Transformer",
+      "label": "Lilguy v0.1 · Transformer",
       "short": "v0.1",
-      "status": "Local Python runner"
+      "status": "Legacy experiment",
+      "description": "An early small Transformer experiment. Kept in the library so older chats and model tests remain discoverable.",
+      "created": "2026-10-18",
+      "tags": ["Legacy", "Transformer", "Experimental"],
+      "capabilities": ["Text generation", "Prototype"]
     },
     {
       "id": "RC-Lilguy-v0.2",
-      "label": "v0.2 · Context Cache",
+      "label": "Lilguy v0.2 · Context Cache",
       "short": "v0.2",
-      "status": "Browser model · experimental"
+      "status": "Browser model · experimental",
+      "description": "A lightweight browser-based next-text experiment using a context table. Runs locally in the browser, but it is not a modern neural language model.",
+      "created": "2026-10-20",
+      "tags": ["Browser", "Lightweight", "Experimental"],
+      "capabilities": ["Local generation", "No Python API required"]
     },
     {
       "id": "RC-Lilguy-v0.3",
       "label": "Lilguy Bluejay v0.3 · Story-trained",
       "short": "v0.3",
-      "status": "Custom model · 8 layers · story-trained"
+      "status": "Custom model · 8 layers · story-trained",
+      "description": "A custom decoder-only Transformer trained from random initialization on dialogue and short-story examples. Designed to learn basic conversation and original story writing.",
+      "created": "2026-10-24",
+      "tags": ["Custom", "Transformer", "Storytelling", "From Scratch", "Experimental"],
+      "capabilities": ["Conversation", "Story writing", "RoPE", "RMSNorm", "SwiGLU", "Grouped-query attention"]
     }
   ]
 }
