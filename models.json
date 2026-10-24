@@ -13,10 +13,10 @@
       "status": "Browser model · experimental"
     },
     {
-      "id": "RC-Lilguy-Bluejay",
-      "label": "Lilguy Bluejay",
-      "short": "Bluejay",
-      "status": "Custom model · from scratch"
+      "id": "RC-Lilguy-v0.3",
+      "label": "Lilguy Bluejay v0.3 · Story-trained",
+      "short": "v0.3",
+      "status": "Custom model · 8 layers · story-trained"
     }
   ]
 }
