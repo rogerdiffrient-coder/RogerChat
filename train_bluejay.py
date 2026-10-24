@@ -84,6 +84,14 @@ def fetch_stories(limit):
     DATA.mkdir(exist_ok=True)
     path = DATA / "bluejay_stories.jsonl"
     stories = []
+    story_prompts = [
+        "Write a short, original story.",
+        "Write me a story.",
+        "Tell me a story.",
+        "Create an original story with a beginning, middle, and ending.",
+        "Can you write a story for me?",
+        "Make up a fun little story."
+    ]
     if path.exists():
         for line in path.read_text(encoding="utf-8").splitlines():
             try:
@@ -121,7 +129,8 @@ def fetch_stories(limit):
             story = row.get("text", "")
             if isinstance(story, str) and len(story.strip()) >= 80:
                 story = story.strip()
-                stories.append("<|user|> Write a short, original story.\n<|assistant|> " + story + " <|end|>")
+                prompt = story_prompts[len(stories) % len(story_prompts)]
+                stories.append("<|user|> " + prompt + "\n<|assistant|> " + story + " <|end|>")
                 if len(stories) >= limit:
                     break
         offset += len(rows)
