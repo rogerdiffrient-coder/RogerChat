@@ -164,6 +164,7 @@ renderChatList();openChat(activeChatId);refreshModels();if(!modelNames.length)re
   answer=answer.trim()||'(The model returned an empty response.)';typing.bubble.className='bubble';typing.bubble.textContent=answer;
   current.messages.push({role:'assistant',text:answer});saveChats();addCopyAction(typing,answer);
  }catch(e){
+  if(e.name==='AbortError'&&activeChatId!==current.id)return;
   typing.row.remove();let message=e.name==='AbortError'?'Generation stopped.':e.name==='TimeoutError'?'Ollama took too long to respond.':(e.message||'Could not reach Ollama.');
   if(e instanceof TypeError)message='Could not reach Ollama. Check that it is running and allows requests from this browser (OLLAMA_ORIGINS).';
   const errorText=message+'\n\nOpen Ollama settings to check the address, then try again.';
