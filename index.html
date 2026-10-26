@@ -182,7 +182,8 @@ $('openSettings').addEventListener('click',()=>{$('ollamaUrl').value=baseUrl;$('
 $('closeSettings').addEventListener('click',()=>$('settingsModal').classList.remove('open'));
 $('settingsModal').addEventListener('click',e=>{if(e.target===$('settingsModal'))$('settingsModal').classList.remove('open')});
 $('saveSettings').addEventListener('click',()=>{baseUrl=clean($('ollamaUrl').value)||'http://localhost:11434';preferred=$('modelSetting').value.trim();memory=$('memoryText').value.trim();localStorage.setItem('rc_ollama_url',baseUrl);localStorage.setItem('rc_model',preferred);localStorage.setItem('rc_memory',memory);$('settingsModal').classList.remove('open');refreshModels();toast('Settings & memory saved')});
-$('modelSelect').addEventListener('change',()=>{preferred=$('modelSelect').value;$('modelSetting').value=preferred;localStorage.setItem('rc_model',preferred)});\n$('refreshModels').addEventListener('click',()=>refreshModels());
+$('modelSelect').addEventListener('change',()=>{preferred=$('modelSelect').value;$('modelSetting').value=preferred;localStorage.setItem('rc_model',preferred)});
+$('refreshModels').addEventListener('click',()=>refreshModels());
 if(!activeChatId||!chats.some(c=>c.id===activeChatId)){const c={id:newId(),title:'New chat',messages:[],created:Date.now()};chats.push(c);activeChatId=c.id;saveChats()}
 renderChatList();openChat(activeChatId);refreshModels();
 </script>
