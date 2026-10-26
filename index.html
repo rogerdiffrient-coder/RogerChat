@@ -13,6 +13,7 @@ body{overflow:hidden;background:radial-gradient(ellipse at 80% -10%,#dceaff 0,tr
 .brand{display:flex;align-items:center;gap:11px;padding:4px 7px 25px}.logo{height:43px;width:43px;border-radius:15px;display:grid;place-items:center;color:white;background:linear-gradient(145deg,#5092ff,#1258e8);box-shadow:0 8px 18px #1769f540;position:relative;transform:rotate(-4deg)}.logo svg{width:25px}.brand-name{font-weight:900;font-size:19px;letter-spacing:-.7px}.brand-name span{color:var(--blue)}.tiny{font-size:10px;font-weight:900;letter-spacing:1.8px;color:#9aa9c1;margin:0 10px 10px;text-transform:uppercase}
 .newchat{border:0;border-radius:14px;background:var(--blue);color:white;font-weight:900;padding:13px 14px;display:flex;gap:10px;align-items:center;justify-content:center;box-shadow:0 7px 16px #1769f52b;transition:transform .18s,box-shadow .18s}.newchat:hover{transform:translateY(-2px);box-shadow:0 11px 22px #1769f53b}.plus{font-size:22px;line-height:15px;font-weight:500}
 .sidebar-note{margin-top:20px;border:1px solid #e7efff;background:linear-gradient(145deg,#f6f9ff,#edf4ff);border-radius:17px;padding:14px 13px}.note-icon{font-size:21px}.note-title{font-size:12px;font-weight:900;margin-top:8px}.note-copy{font-size:11px;color:#8291ac;line-height:1.55;margin-top:4px}
+.chat-list{display:flex;flex-direction:column;gap:4px;max-height:35%;overflow-y:auto;margin:0 -3px 14px;padding:0 3px;scrollbar-width:thin;scrollbar-color:#dce6f7 transparent}.chat-item{width:100%;display:flex;align-items:center;gap:9px;border:1px solid transparent;background:transparent;color:#6f809d;text-align:left;border-radius:11px;padding:10px 8px;min-width:0;transition:.16s}.chat-item:hover{background:#f5f8ff;color:#245dc4}.chat-item.active{background:#edf4ff;border-color:#dfebff;color:#175fe8}.chat-item-icon{font-size:17px;flex:none}.chat-item-title{font-size:11px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.chat-delete{font-size:17px;line-height:1;opacity:0;color:#9aa9bf;padding:1px 3px;border-radius:5px}.chat-item:hover .chat-delete{opacity:1}.chat-delete:hover{color:#d94d61;background:#fff}.chat-empty{font-size:11px;color:#9aa8bc;padding:9px 8px;line-height:1.5}.memory-card{margin-top:10px}.memory-head{display:flex;justify-content:space-between;align-items:center}.memory-edit{border:0;background:#e6efff;color:#2768d9;font-size:9px;font-weight:900;letter-spacing:.7px;border-radius:7px;padding:5px 7px}.memory-text{resize:vertical;min-height:85px;line-height:1.55}
 .side-bottom{margin-top:auto}.connection{border:1px solid var(--line);border-radius:15px;padding:12px;display:flex;gap:10px;align-items:center}.dot{width:9px;height:9px;border-radius:50%;background:#f5b544;box-shadow:0 0 0 4px #fff4df;flex:none}.dot.ok{background:#27c58b;box-shadow:0 0 0 4px #e2fbf1}.dot.bad{background:#f06e7c;box-shadow:0 0 0 4px #fff0f1}.conn-title{font-size:12px;font-weight:900}.conn-sub{font-size:10px;color:#93a0b6;margin-top:2px}.settings{margin-top:9px;display:flex;align-items:center;gap:9px;padding:10px;border-radius:12px;color:#7585a0;font-size:12px;font-weight:800;cursor:pointer}.settings:hover{background:#f4f7fd;color:var(--blue)}
 .main{display:flex;flex-direction:column;min-width:0;min-height:0;background:#ffffffd9;border:1px solid #e7eefb;border-radius:25px;box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(18px)}
 .topbar{height:72px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 25px;border-bottom:1px solid #edf2fb;background:#ffffffc9}.top-left{display:flex;align-items:center;gap:11px}.top-mark{width:34px;height:34px;border-radius:12px;background:#edf4ff;color:var(--blue);display:grid;place-items:center}.top-title{font-size:14px;font-weight:900}.top-sub{font-size:11px;color:#94a2b8;margin-top:2px}.top-right{display:flex;align-items:center;gap:10px}.model-wrap{display:flex;align-items:center;gap:8px;border:1px solid #e7eefb;border-radius:12px;padding:0 10px;background:white;height:38px}.model-wrap label{font-size:10px;font-weight:900;color:#92a0b7;letter-spacing:.5px}.model-wrap select{max-width:180px;border:0;outline:0;background:transparent;color:#2a3c5c;font-size:12px;font-weight:800;cursor:pointer}.pill{font-size:10px;font-weight:900;letter-spacing:.5px;border-radius:10px;background:#effaf5;color:#1da879;padding:8px 10px;display:flex;align-items:center;gap:6px}.pill .dot{width:6px;height:6px;box-shadow:none;background:currentColor}
@@ -23,7 +24,7 @@ body{overflow:hidden;background:radial-gradient(ellipse at 80% -10%,#dceaff 0,tr
 .composer-area{flex:none;padding:14px clamp(15px,4vw,55px) 16px;background:linear-gradient(0deg,#fff 70%,#ffffffed);border-top:1px solid #edf2fb}.composer{max-width:790px;margin:auto;border:1px solid #dce7f9;border-radius:20px;background:#fff;box-shadow:0 8px 26px #1b4d9510,0 1px 2px #1b4d9508;padding:8px 9px 8px 17px;display:flex;align-items:flex-end;gap:10px;transition:border-color .2s,box-shadow .2s}.composer:focus-within{border-color:#91b7ff;box-shadow:0 0 0 4px #1769f50c,0 10px 30px #1b4d9510}.composer textarea{flex:1;min-width:0;resize:none;border:0;outline:0;background:transparent;color:#213452;font-size:14px;line-height:1.6;padding:8px 0;max-height:150px;min-height:40px}.composer textarea::placeholder{color:#a4b0c3}.send{width:43px;height:43px;border:0;border-radius:14px;background:var(--blue);color:white;display:grid;place-items:center;flex:none;box-shadow:0 5px 12px #1769f535;transition:transform .15s,background .15s}.send:hover{transform:translateY(-2px);background:#0756e7}.send:disabled{background:#a8c5fa;box-shadow:none;cursor:default;transform:none}.send svg{width:20px}.compose-meta{max-width:790px;margin:9px auto 0;display:flex;justify-content:space-between;align-items:center;color:#a2aec0;font-size:10px;font-weight:700;padding:0 3px}.compose-meta strong{color:#8093b2;font-weight:900}.kbd{border:1px solid #e3eaf5;background:#f8faff;padding:2px 5px;border-radius:5px;font-size:9px}
 .modal-backdrop{position:fixed;inset:0;background:#14274745;backdrop-filter:blur(5px);display:none;place-items:center;padding:20px;z-index:5}.modal-backdrop.open{display:grid;animation:fade .18s ease}.modal{width:min(100%,450px);background:#fff;border-radius:24px;padding:25px;box-shadow:0 30px 100px #112d5c35;animation:rise .25s ease}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.modal h2{font-size:22px;margin:0;letter-spacing:-.6px}.close{border:0;background:#f2f6fd;color:#7e8ca4;border-radius:10px;width:34px;height:34px;font-size:20px}.modal p{font-size:12px;color:#8593aa;line-height:1.6}.field-label{display:block;font-size:11px;font-weight:900;color:#627491;margin:17px 0 7px}.field{width:100%;border:1px solid #e0e9f8;border-radius:12px;padding:12px 13px;background:#fafdff;color:#233754;font-size:13px;outline:none}.field:focus{border-color:#91b7ff}.save{margin-top:18px;width:100%;border:0;border-radius:13px;background:var(--blue);color:#fff;font-weight:900;padding:13px}.modal-foot{font-size:10px!important;color:#9aa8bc!important;margin-bottom:0}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,15px);background:#142b4d;color:white;padding:11px 16px;border-radius:12px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;z-index:10;box-shadow:0 8px 25px #12345b30}.toast.show{opacity:1;transform:translate(-50%,0)}
 @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes fade{from{opacity:0}to{opacity:1}}@keyframes bop{0%,60%,100%{transform:translateY(0);opacity:.55}30%{transform:translateY(-5px);opacity:1}}
-@media(max-width:760px){.app{grid-template-columns:1fr;padding:7px;gap:0}.sidebar{display:none}.main{border-radius:20px}.topbar{padding:0 14px;height:64px}.top-sub,.pill{display:none}.model-wrap{max-width:180px}.model-wrap label{display:none}.model-wrap select{max-width:145px}.chat-scroll{padding:22px 14px}.welcome{padding:15px 0 30px}.mascot{width:82px;height:82px;border-radius:27px}.mascot svg{width:51px}.welcome h1{letter-spacing:-1.4px}.welcome p{font-size:13px}.suggestions{gap:8px;margin-top:23px}.suggestion{padding:11px;gap:8px;min-height:65px}.s-icon{width:29px;height:29px;font-size:15px}.s-text{font-size:11px}.s-sub{font-size:9px}.composer-area{padding:10px 11px 12px}.compose-meta{font-size:9px}.message{gap:8px}.avatar{width:30px;height:30px}.bubble-wrap{max-width:calc(100% - 38px)}.bubble{font-size:13px;padding:11px 13px}.messages{gap:18px}}
+@media(max-width:760px){.chat-list,.memory-card{display:none}.app{grid-template-columns:1fr;padding:7px;gap:0}.sidebar{display:none}.main{border-radius:20px}.topbar{padding:0 14px;height:64px}.top-sub,.pill{display:none}.model-wrap{max-width:180px}.model-wrap label{display:none}.model-wrap select{max-width:145px}.chat-scroll{padding:22px 14px}.welcome{padding:15px 0 30px}.mascot{width:82px;height:82px;border-radius:27px}.mascot svg{width:51px}.welcome h1{letter-spacing:-1.4px}.welcome p{font-size:13px}.suggestions{gap:8px;margin-top:23px}.suggestion{padding:11px;gap:8px;min-height:65px}.s-icon{width:29px;height:29px;font-size:15px}.s-text{font-size:11px}.s-sub{font-size:9px}.composer-area{padding:10px 11px 12px}.compose-meta{font-size:9px}.message{gap:8px}.avatar{width:30px;height:30px}.bubble-wrap{max-width:calc(100% - 38px)}.bubble{font-size:13px;padding:11px 13px}.messages{gap:18px}}
 @media(max-width:390px){.suggestions{grid-template-columns:1fr}.welcome{justify-content:flex-start}.suggestion{min-height:56px}.compose-meta span:last-child{display:none}}
 </style>
 </head>
@@ -32,8 +33,9 @@ body{overflow:hidden;background:radial-gradient(ellipse at 80% -10%,#dceaff 0,tr
 <aside class="sidebar">
  <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8.5A4 4 0 0 1 16 8.5v7a4 4 0 0 1-8 0z"/><path d="M8 12H5m11 0h3M10 5V3m4 2V3M9.5 13h.01M14.5 13h.01M10 17h4"/></svg></div><div class="brand-name">Roger<span>Chat</span></div></div>
  <button class="newchat" id="newChat"><span class="plus">＋</span> Fresh chat</button>
- <div style="height:28px"></div><div class="tiny">THE VIBE</div>
- <div class="sidebar-note"><div class="note-icon">🫧</div><div class="note-title">A tiny chat. Big brain energy.</div><div class="note-copy">No chat history. No memory. Every message is a clean slate for your local model.</div></div>
+ <div style="height:25px"></div><div class="tiny">YOUR CHATS</div>
+ <div class="chat-list" id="chatList"></div>
+ <div class="sidebar-note memory-card"><div class="memory-head"><span class="note-icon">🧠</span><button class="memory-edit" id="editMemory">EDIT</button></div><div class="note-title">Little memory bank</div><div class="note-copy" id="memoryPreview">Nothing saved yet. Add a few things RogerChat should know.</div></div>
  <div class="side-bottom"><div class="connection"><span class="dot" id="sideDot"></span><div><div class="conn-title" id="sideConn">Finding Ollama…</div><div class="conn-sub" id="sideSub">Checking your machine</div></div></div><div class="settings" id="openSettings"><span>⚙</span> Ollama settings <span style="margin-left:auto">↗</span></div></div>
 </aside>
 <main class="main">
@@ -46,13 +48,51 @@ body{overflow:hidden;background:radial-gradient(ellipse at 80% -10%,#dceaff 0,tr
  <footer class="composer-area"><div class="composer"><textarea id="prompt" rows="1" placeholder="Say literally anything…" aria-label="Message"></textarea><button class="send" id="send" aria-label="Send message" title="Send message"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button></div><div class="compose-meta"><span><strong>↵</strong> send <span style="margin:0 5px;color:#d2dbea">·</span> <span class="kbd">SHIFT ↵</span> new line</span><span>Made of pixels & questionable confidence ✦</span></div></footer>
 </main>
 </div>
-<div class="modal-backdrop" id="settingsModal"><div class="modal"><div class="modal-head"><h2>Ollama setup ⚙️</h2><button class="close" id="closeSettings" aria-label="Close">×</button></div><p>RogerChat talks straight to Ollama running on your computer. It doesn't send chat history or keep old messages.</p><label class="field-label" for="ollamaUrl">Ollama address</label><input class="field" id="ollamaUrl" value="http://localhost:11434" spellcheck="false"><label class="field-label" for="modelSetting">Preferred model</label><input class="field" id="modelSetting" placeholder="e.g. qwen3:4b" spellcheck="false"><button class="save" id="saveSettings">Save & reconnect</button><p class="modal-foot">If your browser blocks the connection, run Ollama with browser access enabled (OLLAMA_ORIGINS), then refresh this page. GitHub Pages cannot access your machine unless Ollama is running locally.</p></div></div>
+<div class="modal-backdrop" id="settingsModal"><div class="modal"><div class="modal-head"><h2>Ollama setup ⚙️</h2><button class="close" id="closeSettings" aria-label="Close">×</button></div><p>RogerChat talks straight to Ollama running on your computer. Each reply gets your latest message plus the saved memory below, not the full chat transcript.</p><label class="field-label" for="memoryText">Simple memory (included with each message)</label><textarea class="field memory-text" id="memoryText" rows="4" placeholder="My name is Roger. I like concise answers. I'm building RogerChat..."></textarea><p class="modal-foot">This memory stays in this browser's local storage and is sent to your local Ollama model with each prompt.</p><label class="field-label" for="ollamaUrl">Ollama address</label><input class="field" id="ollamaUrl" value="http://localhost:11434" spellcheck="false"><label class="field-label" for="modelSetting">Preferred model</label><input class="field" id="modelSetting" placeholder="e.g. qwen3:4b" spellcheck="false"><button class="save" id="saveSettings">Save & reconnect</button><p class="modal-foot">If your browser blocks the connection, run Ollama with browser access enabled (OLLAMA_ORIGINS), then refresh this page. GitHub Pages cannot access your machine unless Ollama is running locally.</p></div></div>
 <div class="toast" id="toast"></div>
 <script>
 const $=id=>document.getElementById(id);
 let baseUrl=localStorage.getItem('rc_ollama_url')||'http://localhost:11434';
 let preferred=localStorage.getItem('rc_model')||'';
 let busy=false, requestController=null, modelNames=[];
+let chats=loadJSON('rc_chats',[]), activeChatId=localStorage.getItem('rc_active_chat')||'';
+let memory=localStorage.getItem('rc_memory')||'';
+function loadJSON(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return Array.isArray(value)?value:fallback}catch{return fallback}}
+function saveChats(){localStorage.setItem('rc_chats',JSON.stringify(chats));localStorage.setItem('rc_active_chat',activeChatId)}
+function activeChat(){return chats.find(c=>c.id===activeChatId)}
+function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function chatTitle(text){const t=text.replace(/\s+/g,' ').trim();return t.length>27?t.slice(0,27)+'…':t||'New chat'}
+function renderChatList(){
+ const list=$('chatList');list.replaceChildren();
+ if(!chats.length){const empty=document.createElement('div');empty.className='chat-empty';empty.textContent='Your chats will live here.';list.append(empty);return}
+ [...chats].reverse().forEach(chat=>{
+  const b=document.createElement('button');b.className='chat-item'+(chat.id===activeChatId?' active':'');
+  const icon=document.createElement('span');icon.className='chat-item-icon';icon.textContent='◌';
+  const label=document.createElement('span');label.className='chat-item-title';label.textContent=chat.title||'New chat';
+  const del=document.createElement('span');del.className='chat-delete';del.textContent='×';del.title='Delete chat';del.setAttribute('role','button');del.setAttribute('aria-label','Delete chat');
+  del.addEventListener('click',e=>{e.stopPropagation();deleteChat(chat.id)});
+  b.append(icon,label,del);b.addEventListener('click',()=>openChat(chat.id));list.append(b);
+ });
+}
+function persistActiveMessages(){const c=activeChat();if(c){c.messages=visibleMessages();saveChats()}}
+function visibleMessages(){return [...$('messages').querySelectorAll('.message')].map(row=>({role:row.classList.contains('user')?'user':'assistant',text:row.querySelector('.bubble')?.textContent||'',error:row.classList.contains('error')})).filter(m=>m.text)}
+function openChat(id){
+ if(busy&&requestController)requestController.abort();
+ activeChatId=id;const c=activeChat();if(!c)return;
+ $('messages').replaceChildren();$('welcome').style.display=c.messages.length?'none':'';
+ c.messages.forEach(m=>{const node=addMessage(m.role,m.text,!!m.error);if(m.role==='assistant'&&!m.error)addCopyAction(node,m.text)});
+ saveChats();renderChatList();scrollBottom();setBusy(false);
+}
+function createChat(){
+ if(busy&&requestController)requestController.abort();
+ const c={id:newId(),title:'New chat',messages:[],created:Date.now()};
+ chats.push(c);activeChatId=c.id;saveChats();$('messages').replaceChildren();$('welcome').style.display='';$('prompt').value='';resizeInput();renderChatList();setBusy(false);$('prompt').focus();scrollBottom();
+}
+function deleteChat(id){
+ chats=chats.filter(c=>c.id!==id);
+ if(activeChatId===id){if(chats.length)openChat(chats[chats.length-1].id);else createChat()}
+ saveChats();renderChatList();
+}
 const clean=s=>String(s||'').trim().replace(/\/$/,'');
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.remove('show'),2600)}
 function setStatus(state,title,sub){$('sideDot').className='dot '+state;$('sideConn').textContent=title;$('sideSub').textContent=sub;$('topStatusText').textContent=state==='ok'?'OLLAMA READY':state==='bad'?'OFFLINE':'CONNECTING';$('topStatus').style.background=state==='ok'?'#effaf5':state==='bad'?'#fff0f2':'#fff7e6';$('topStatus').style.color=state==='ok'?'#1da879':state==='bad'?'#d35465':'#bd8b2d'}
@@ -61,7 +101,7 @@ async function refreshModels(){
  try{
   const r=await fetch(clean(baseUrl)+'/api/tags',{signal:AbortSignal.timeout(3500)});
   if(!r.ok)throw Error('Ollama returned '+r.status);
-  const data=await r.json();modelNames=(data.models||[]).map(m=>m.name).filter(Boolean);
+  const data=await r.json();modelNames=(data.models||[]).map(m=>m.name).filter(n=>n&&!/(embed|embedding|rerank)/i.test(n));
   const sel=$('modelSelect');sel.replaceChildren();
   if(!modelNames.length){const o=document.createElement('option');o.value='';o.textContent='No models installed';sel.append(o);setStatus('bad','Ollama connected','Install a model first');return}
   const chosen=(preferred&&modelNames.includes(preferred))?preferred:modelNames[0];
@@ -81,39 +121,68 @@ function addMessage(role,text,err=false){
  const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=text;
  wrap.append(sender,bubble);row.append(av,wrap);$('messages').append(row);return {row,bubble,wrap};
 }
+function addCopyAction(node,answer){
+ const actions=document.createElement('div');actions.className='message-actions';
+ const copy=document.createElement('button');copy.className='mini-action';copy.textContent='▢ Copy';
+ copy.onclick=async()=>{try{await navigator.clipboard.writeText(answer);toast('Copied. Go forth.')}catch{toast('Clipboard access unavailable')}};
+ actions.append(copy);node.wrap.append(actions);
+}
 function showChat(){ $('welcome').style.display='none'; }
 function setBusy(v){busy=v;$('send').disabled=v;$('prompt').disabled=v;$('send').innerHTML=v?'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>'}
 async function sendMessage(text){
  text=(text??$('prompt').value).trim();if(!text||busy)return;
- if(!modelNames.length){toast('Ollama isn’t connected yet');await refreshModels();if(!modelNames.length)return}
- showChat();$('prompt').value='';resizeInput();addMessage('user',text);
+ if(!modelNames.length){toast('Ollama isn’t connected yet');await $('memoryText').value=memory;$('memoryPreview').textContent=memory||'Nothing saved yet. Add a few things RogerChat should know.';
+if(!activeChatId||!chats.some(c=>c.id===activeChatId)){const c={id:newId(),title:'New chat',messages:[],created:Date.now()};chats.push(c);activeChatId=c.id;saveChats()}
+renderChatList();openChat(activeChatId);refreshModels();if(!modelNames.length)return}
+ showChat();$('prompt').value='';resizeInput();
+ const chat=activeChat();if(!chat){createChat()}
+ const current=activeChat();if(!current.messages.length)current.title=chatTitle(text);
+ current.messages.push({role:'user',text});saveChats();renderChatList();
+ addMessage('user',text);
  const typing=addMessage('assistant','');typing.bubble.className='typing';typing.bubble.innerHTML='<i></i><i></i><i></i>';setBusy(true);
  const model=$('modelSelect').value;
  try{
   requestController=new AbortController();
-  const response=await fetch(clean(baseUrl)+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model,messages:[{role:'user',content:text}],stream:false}),signal:requestController.signal});
+  const messages=[];
+  if(memory.trim())messages.push({role:'system',content:'Helpful saved memory about the user. Use it when relevant, but do not assume details beyond it.\n'+memory.trim()});
+  messages.push({role:'user',content:text});
+  const response=await fetch(clean(baseUrl)+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model,messages,stream:true}),signal:requestController.signal});
   if(!response.ok){let msg='Ollama returned '+response.status;try{const j=await response.json();if(j.error)msg=j.error}catch{}throw Error(msg)}
-  const data=await response.json();const answer=data.message?.content?.trim()||'(The model returned an empty response.)';
-  typing.bubble.className='bubble';typing.bubble.textContent=answer;
-  const actions=document.createElement('div');actions.className='message-actions';const copy=document.createElement('button');copy.className='mini-action';copy.textContent='▢ Copy';copy.onclick=async()=>{try{await navigator.clipboard.writeText(answer);toast('Copied. Go forth.')}catch{toast('Clipboard access unavailable')}};actions.append(copy);typing.wrap.append(actions);
+  if(!response.body)throw Error('This browser cannot read the streaming response.');
+  const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='',answer='',started=false,done=false;
+  while(!done){
+   const part=await reader.read();buffer+=decoder.decode(part.value||new Uint8Array(),{stream:!part.done});
+   const lines=buffer.split('\n');buffer=lines.pop()||'';
+   for(const line of lines){if(!line.trim())continue;let packet;try{packet=JSON.parse(line)}catch{continue}
+    if(packet.error)throw Error(packet.error);
+    const chunk=packet.message?.content||'';if(chunk){answer+=chunk;if(!started){started=true;typing.bubble.className='bubble';typing.bubble.textContent=''}typing.bubble.textContent=answer;scrollBottom()}
+    if(packet.done)done=true;
+   }
+   if(part.done)done=true;
+  }
+  if(buffer.trim()){try{const packet=JSON.parse(buffer);if(packet.message?.content){answer+=packet.message.content;typing.bubble.className='bubble';typing.bubble.textContent=answer}if(packet.error)throw Error(packet.error)}catch(e){if(e.message&&!e.message.includes('JSON'))throw e}}
+  answer=answer.trim()||'(The model returned an empty response.)';typing.bubble.className='bubble';typing.bubble.textContent=answer;
+  current.messages.push({role:'assistant',text:answer});saveChats();addCopyAction(typing,answer);
  }catch(e){
   typing.row.remove();let message=e.name==='AbortError'?'Generation stopped.':e.name==='TimeoutError'?'Ollama took too long to respond.':(e.message||'Could not reach Ollama.');
   if(e instanceof TypeError)message='Could not reach Ollama. Check that it is running and allows requests from this browser (OLLAMA_ORIGINS).';
-  addMessage('assistant',message+'\n\nOpen Ollama settings to check the address, then try again.',true);
+  const errorText=message+'\n\nOpen Ollama settings to check the address, then try again.';
+  addMessage('assistant',errorText,true);current.messages.push({role:'assistant',text:errorText,error:true});saveChats();
  }finally{requestController=null;setBusy(false);$('prompt').focus();scrollBottom()}
 }
 function scrollBottom(){$('chatScroll').scrollTop=$('chatScroll').scrollHeight}
 function resizeInput(){$('prompt').style.height='auto';$('prompt').style.height=Math.min($('prompt').scrollHeight,150)+'px'}
-function fresh(){if(busy&&requestController)requestController.abort();$('messages').replaceChildren();$('welcome').style.display='';$('prompt').value='';resizeInput();setBusy(false);$('prompt').focus();scrollBottom()}
+function fresh(){createChat()}
 $('send').addEventListener('click',()=>sendMessage());
 $('prompt').addEventListener('input',resizeInput);
 $('prompt').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
 $('newChat').addEventListener('click',fresh);
+$('editMemory').addEventListener('click',()=>{$('memoryText').value=memory;$('settingsModal').classList.add('open')});
 document.querySelectorAll('[data-prompt]').forEach(b=>b.addEventListener('click',()=>sendMessage(b.dataset.prompt)));
 $('openSettings').addEventListener('click',()=>{$('ollamaUrl').value=baseUrl;$('modelSetting').value=preferred;$('settingsModal').classList.add('open')});
 $('closeSettings').addEventListener('click',()=>$('settingsModal').classList.remove('open'));
 $('settingsModal').addEventListener('click',e=>{if(e.target===$('settingsModal'))$('settingsModal').classList.remove('open')});
-$('saveSettings').addEventListener('click',()=>{baseUrl=clean($('ollamaUrl').value)||'http://localhost:11434';preferred=$('modelSetting').value.trim();localStorage.setItem('rc_ollama_url',baseUrl);localStorage.setItem('rc_model',preferred);$('settingsModal').classList.remove('open');refreshModels();toast('Settings saved')});
+$('saveSettings').addEventListener('click',()=>{baseUrl=clean($('ollamaUrl').value)||'http://localhost:11434';preferred=$('modelSetting').value.trim();memory=$('memoryText').value.trim();localStorage.setItem('rc_ollama_url',baseUrl);localStorage.setItem('rc_model',preferred);localStorage.setItem('rc_memory',memory);$('memoryPreview').textContent=memory||'Nothing saved yet. Add a few things RogerChat should know.';$('settingsModal').classList.remove('open');refreshModels();toast('Settings & memory saved')});
 $('modelSelect').addEventListener('change',()=>{preferred=$('modelSelect').value;$('modelSetting').value=preferred;localStorage.setItem('rc_model',preferred)});
 refreshModels();
 </script>
